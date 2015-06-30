@@ -33,7 +33,7 @@
 
 1. Use HTTP status codes to be meaningful.
     * 200 - Success.
-    * 201 - Created. Returned on successful creation of a new resource.
+    * 201 - Created. Returned on successful creation of a new resource. Include a 'Location' header with a link to the newly-created resource.
     * 400 - Bad request. Data issues such as invalid JSON, etc.
     * 404 - Not found. Resource not found on GET.
     * 409 - Conflict. Duplicate data or invalid data state would occur.
@@ -41,6 +41,13 @@
 1. Use ISO 8601 timepoint formats for dates in representations.
 
 1. Use Content-Type negotiation to describe incoming request payloads.
+    * For example, let's say your doing ratings, including a thumbs-up/thumbs-down and five-star rating. You have one route to create a rating: **POST /ratings**
+
+    How do you distinguish the incoming data to the service so it can determine which rating type it is: thumbs-up or five star?
+    
+    The temptation is to create one route for each rating type: **POST /ratings/five_star** and **POST /ratings/thumbs_up**
+    
+    However, by using Content-Type negotiation we can use our same **POST /ratings** route for both types. By setting the *Content-Type* header on the request to something like **Content-Type: application/vnd.company.rating.thumbsup** or **Content-Type: application/vnd.company.rating.fivestar** the server can determine how to process the incoming rating data.
 
 1. Evolution over versioning. However, if versioning, use Accept header instead of URL.
 
