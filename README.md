@@ -41,7 +41,8 @@
 1. Use ISO 8601 timepoint formats for dates in representations.
 
 1. Use Content-Type negotiation to describe incoming request payloads.
-    * For example, let's say your doing ratings, including a thumbs-up/thumbs-down and five-star rating. You have one route to create a rating: **POST /ratings**
+
+    For example, let's say your doing ratings, including a thumbs-up/thumbs-down and five-star rating. You have one route to create a rating: **POST /ratings**
 
     How do you distinguish the incoming data to the service so it can determine which rating type it is: thumbs-up or five star?
     
