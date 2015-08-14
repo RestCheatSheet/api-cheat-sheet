@@ -40,16 +40,34 @@
 
 1. Use ISO 8601 timepoint formats for dates in representations.
 
+1. Consider connectedness.
+    * Utilize a linking strategy. Some popular examples are:
+        * [HAL](http://stateless.co/hal_specification.html)
+        * [Siren](https://github.com/kevinswiber/siren)
+        * [JSON-LD](http://json-ld.org/)
+        * [Collection+JSON](http://amundsen.com/media-types/collection/)
+
+1. Use [OAuth2](http://oauth.net/2/) to secure your API.
+    * Use HTTPS / TLS to access your API.
+    * Use a Bearer token for authentication.
+
 1. Use Content-Type negotiation to describe incoming request payloads.
 
     For example, let's say your doing ratings, including a thumbs-up/thumbs-down and five-star rating. You have one route to create a rating: **POST /ratings**
 
     How do you distinguish the incoming data to the service so it can determine which rating type it is: thumbs-up or five star?
-    
+
     The temptation is to create one route for each rating type: **POST /ratings/five_star** and **POST /ratings/thumbs_up**
-    
+
     However, by using Content-Type negotiation we can use our same **POST /ratings** route for both types. By setting the *Content-Type* header on the request to something like **Content-Type: application/vnd.company.rating.thumbsup** or **Content-Type: application/vnd.company.rating.fivestar** the server can determine how to process the incoming rating data.
 
 1. Evolution over versioning. However, if versioning, use Accept header instead of URL.
 
-1. Consider Cacheability.
+1. Consider Cache-ability.
+    * At a minimum, use the following response headers:
+        * ETag - An arbitrary string for the version of a representation. Make sure to include the media type in the hash value, because that makes a different representation. (ex: ETag: "686897696a7c876b7e")
+        * Date - Date and time the response was returned (in RFC1123 format). (ex: Date: Sun, 06 Nov 1994 08:49:37 GMT)
+        * Cache-Control - The maximum number of seconds (max age) a response can be cached. However, if caching is not supported for the response, then no-cache is the value. (ex: Cache-Control: 360 or Cache-Control: no-cache)
+        * Expires - If max age is given, contains the timestamp (in RFC1123 format) for when the response expires, which is the value of Date (e.g. now) plus max age. If caching is not supported for the response, this header is not present. (ex: Expires: Sun, 06 Nov 1994 08:49:37 GMT)
+        * Pragma - When Cache-Control is 'no-cache' this header is also set to 'no-cache'. Otherwise, it is not present. (ex: Pragma: no-cache)
+        * Last-Modified - The timestamp that the resource itself was modified last (in RFC1123 format). (ex: Last-Modified: Sun, 06 Nov 1994 08:49:37 GMT)
