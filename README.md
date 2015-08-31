@@ -9,7 +9,7 @@
         * The resource collection (e.g. /orders)
         * Individual resource within the collection (e.g. /orders/{orderId}).
     * Use plural forms (‘orders’ instead of ‘order’).
-    * Alternate resource names with IDs as URL nodes (e.g. /resources/{id}/resources/{id})
+    * Alternate resource names with IDs as URL nodes (e.g. /parent_resources/{id}/child_resources/{id})
     * Keep URLs as short as possible. Preferably, no more-than three nodes per URL.
 
 1. Use nouns as resource names (e.g. don’t use verbs in URLs).
@@ -17,13 +17,13 @@
 1. Make resource representations meaningful.
     * “No Naked IDs!” No plain IDs embedded in responses. Use links and reference objects.
     * Design resource representations. Don’t simply represent database tables.
-    * Merge representations. Don’t expose relationship tables as two IDs-represent meaningful resources.
+    * Merge representations. Don’t expose relationship tables as two IDs.
 
 1. Support filtering, sorting, and pagination on collections.
 
-1. Support link expansion of relationships. Allow clients to expand the data contained in the response by including additional representations instead of links.
+1. Support link expansion of relationships. Allow clients to expand the data contained in the response by including additional representations instead of, or in addition to, links.
 
-1. Support field projections on resources. Allow clients to reduce the number of fields that come back.
+1. Support field projections on resources. Allow clients to reduce the number of fields that come back in the response.
 
 1. Use the HTTP method names to mean something:
     * POST - create and other non-idempotent operations.
@@ -40,12 +40,11 @@
 
 1. Use ISO 8601 timepoint formats for dates in representations.
 
-1. Consider connectedness.
-    * Utilize a linking strategy. Some popular examples are:
-        * [HAL](http://stateless.co/hal_specification.html)
-        * [Siren](https://github.com/kevinswiber/siren)
-        * [JSON-LD](http://json-ld.org/)
-        * [Collection+JSON](http://amundsen.com/media-types/collection/)
+1. Consider connectedness by utilizing a linking strategy. Some popular examples are:
+    * [HAL](http://stateless.co/hal_specification.html)
+    * [Siren](https://github.com/kevinswiber/siren)
+    * [JSON-LD](http://json-ld.org/)
+    * [Collection+JSON](http://amundsen.com/media-types/collection/)
 
 1. Use [OAuth2](http://oauth.net/2/) to secure your API.
     * Use HTTPS / TLS to access your API.
@@ -61,7 +60,11 @@
 
     However, by using Content-Type negotiation we can use our same **POST /ratings** route for both types. By setting the *Content-Type* header on the request to something like **Content-Type: application/vnd.company.rating.thumbsup** or **Content-Type: application/vnd.company.rating.fivestar** the server can determine how to process the incoming rating data.
 
-1. Evolution over versioning. However, if versioning, use Accept header instead of URL.
+1. Evolution over versioning. However, if versioning, use the Accept header instead of versioning in the URL.
+    * Versioning via the URL signifies a 'platform' version and the entire platform must be versioned at the same time to enable the linking strategy.
+    * Versioning via the Accept header is versioning the resource.
+    * Additions to a JSON response do not require versioning. However, additions to a JSON request body that are 'required' are troublesome--and may require versioning.
+    * Hypermedia linking and versioning is troublesome no matter what--minimize it.
 
 1. Consider Cache-ability.
     * At a minimum, use the following response headers:
