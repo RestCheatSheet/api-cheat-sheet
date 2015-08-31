@@ -1,3 +1,5 @@
+See also: (Platform Building Cheat Sheet)[https://github.com/RestCheatSheet/platform-cheat-sheet#platform-building-cheat-sheet]
+
 # API Design Cheat Sheet
 1. Build the API with consumers in mind--as a product in its own right.
     * Not for a specific UI.
