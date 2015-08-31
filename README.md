@@ -1,4 +1,4 @@
-See also: (Platform Building Cheat Sheet)[https://github.com/RestCheatSheet/platform-cheat-sheet#platform-building-cheat-sheet]
+See also: [Platform Building Cheat Sheet](https://github.com/RestCheatSheet/platform-cheat-sheet#platform-building-cheat-sheet)
 
 # API Design Cheat Sheet
 1. Build the API with consumers in mind--as a product in its own right.
@@ -11,7 +11,7 @@ See also: (Platform Building Cheat Sheet)[https://github.com/RestCheatSheet/plat
         * The resource collection (e.g. /orders)
         * Individual resource within the collection (e.g. /orders/{orderId}).
     * Use plural forms (‘orders’ instead of ‘order’).
-    * Alternate resource names with IDs as URL nodes (e.g. /parent_resources/{id}/child_resources/{id})
+    * Alternate resource names with IDs as URL nodes (e.g. /orders/{orderId}/items/{itemId})
     * Keep URLs as short as possible. Preferably, no more-than three nodes per URL.
 
 1. Use nouns as resource names (e.g. don’t use verbs in URLs).
