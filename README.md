@@ -49,8 +49,8 @@ See also: [Platform Building Cheat Sheet](https://github.com/RestCheatSheet/plat
     * [Collection+JSON](http://amundsen.com/media-types/collection/)
 
 1. Use [OAuth2](http://oauth.net/2/) to secure your API.
-    * Use HTTPS / TLS to access your API.
     * Use a Bearer token for authentication.
+    * Require HTTPS / TLS / SSL to access your APIs. OAuth2 Bearer tokens demand it. Unencrypted communication over HTTP allows for simple eavesdroppping and impersonation.
 
 1. Use Content-Type negotiation to describe incoming request payloads.
 
@@ -75,3 +75,5 @@ See also: [Platform Building Cheat Sheet](https://github.com/RestCheatSheet/plat
     * Expires - If max age is given, contains the timestamp (in RFC1123 format) for when the response expires, which is the value of Date (e.g. now) plus max age. If caching is not supported for the response, this header is not present. (ex: Expires: Sun, 06 Nov 1994 08:49:37 GMT)
     * Pragma - When Cache-Control is 'no-cache' this header is also set to 'no-cache'. Otherwise, it is not present. (ex: Pragma: no-cache)
     * Last-Modified - The timestamp that the resource itself was modified last (in RFC1123 format). (ex: Last-Modified: Sun, 06 Nov 1994 08:49:37 GMT)
+
+1. Ensure that your READ, PUT, and DELETE operations are all [idempotent](http://www.restapitutorial.com/lessons/idempotency.html).  There should be no adverse side affects from operations.
