@@ -67,6 +67,7 @@ See also: [Platform Building Cheat Sheet](https://github.com/RestCheatSheet/plat
     * Versioning via the Accept header is versioning the resource.
     * Additions to a JSON response do not require versioning. However, additions to a JSON request body that are 'required' are troublesome--and may require versioning.
     * Hypermedia linking and versioning is troublesome no matter what--minimize it.
+    * Note that a version in the URL, while discouraged, can be used as a 'platform' version. It should appear as the first node in the path and not version individual endpoints differently (e.g. api.example.com/v1/...).
 
 1. Consider Cache-ability. At a minimum, use the following response headers:
     * ETag - An arbitrary string for the version of a representation. Make sure to include the media type in the hash value, because that makes a different representation. (ex: ETag: "686897696a7c876b7e")
